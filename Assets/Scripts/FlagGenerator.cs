@@ -105,7 +105,7 @@ public class FlagGenerator : MonoBehaviour
         //really it only needs 1 box collider that just gets its position moved up and its size increased by 1 each time
 
         //use bounds of all segments except the topper, calculate the size of a box collider
-        Bounds bounds;
+        //Bounds bounds;
     }
 
     #endregion Methods
