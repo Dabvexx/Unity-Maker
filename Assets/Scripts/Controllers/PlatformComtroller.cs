@@ -146,7 +146,7 @@ public class PlatformComtroller : RayCastController
         {
             if (velocity.x != 0)
             {
-                float rayLength = Mathf.Abs(velocity.x) + skinWidth + 0.03f; ;
+                float rayLength = Mathf.Abs(velocity.x) + skinWidth + 0.03f;
 
                 for (int i = 0; i < horizontalRayCount; i++)
                 {

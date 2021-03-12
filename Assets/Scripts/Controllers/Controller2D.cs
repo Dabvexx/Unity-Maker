@@ -32,7 +32,7 @@ public class Controller2D : RayCastController
             DescendSlope(ref velocity);
         }
 
-            HorizontalCollisions(ref velocity); 
+           HorizontalCollisions(ref velocity); 
 
         if (velocity.y != 0)
         {
