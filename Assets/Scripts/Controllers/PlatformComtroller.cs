@@ -7,8 +7,9 @@ public class PlatformComtroller : RayCastController
 
     // Possibly use list to set the amount of waypoints at runtime
     public Vector3[] localWaypoints;
-
     private Vector3[] globalWaypoints;
+
+    public bool canPush;
 
     public float speed;
     public bool cyclic;
@@ -141,30 +142,32 @@ public class PlatformComtroller : RayCastController
         }
 
         // Horizontally moving platform
-
-        if (velocity.x != 0)
+        if (canPush)
         {
-            float rayLength = Mathf.Abs(velocity.x) + skinWidth + 0.03f; ;
-
-            for (int i = 0; i < horizontalRayCount; i++)
+            if (velocity.x != 0)
             {
-                Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
-                rayOrigin += Vector2.up * (horizontalRaySpacing * i);
-                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
+                float rayLength = Mathf.Abs(velocity.x) + skinWidth + 0.03f; ;
 
-                // Pushes along ground, i dont think i want some platforms to be able to push the player, only carry
-                // Maybe add a variable to all platforms that say if they can push the player or not and had that be decided per prefab
-
-                if (hit)
+                for (int i = 0; i < horizontalRayCount; i++)
                 {
-                    if (!movedPassengers.Contains(hit.transform))
+                    Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
+                    rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+                    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
+
+                    // Pushes along ground, i dont think i want some platforms to be able to push the player, only carry
+                    // Maybe add a variable to all platforms that say if they can push the player or not and had that be decided per prefab
+
+                    if (hit)
                     {
-                        movedPassengers.Add(hit.transform);
+                        if (!movedPassengers.Contains(hit.transform))
+                        {
+                            movedPassengers.Add(hit.transform);
 
-                        float pushX = velocity.x - (hit.distance - skinWidth) * directionX;
-                        float pushY = -skinWidth;
+                            float pushX = velocity.x - (hit.distance - skinWidth) * directionX;
+                            float pushY = -skinWidth;
 
-                        passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), false, true));
+                            passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), false, true));
+                        }
                     }
                 }
             }

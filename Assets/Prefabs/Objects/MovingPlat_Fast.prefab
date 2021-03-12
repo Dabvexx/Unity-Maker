@@ -125,8 +125,8 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 256
-  horizontalRayCount: 4
-  verticalRayCount: 4
+  horizontalRayCount: 6
+  verticalRayCount: 6
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   boxCollider2D: {fileID: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   localWaypoints: []
-  speed: 0
+  speed: 6
   cyclic: 0
   waitTime: 0
   easeAmount: 0
