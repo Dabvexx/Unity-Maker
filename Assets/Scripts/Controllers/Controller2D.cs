@@ -11,6 +11,7 @@ public class Controller2D : RayCastController
     public override void Start()
     {
         base.Start();
+        collisions.faceDir = 1;
     }
 
     #region Methods
@@ -21,15 +22,17 @@ public class Controller2D : RayCastController
         collisions.Reset();
         collisions.velocityOld = velocity;
 
+        if(velocity.x != 0)
+        {
+            collisions.faceDir = (int)Mathf.Sign(velocity.x);
+        }
+
         if (velocity.y <= 0)
         {
             DescendSlope(ref velocity);
         }
 
-        if (velocity.x != 0)
-        {
-            HorizontalCollisions(ref velocity);
-        }
+            HorizontalCollisions(ref velocity); 
 
         if (velocity.y != 0)
         {
@@ -48,8 +51,13 @@ public class Controller2D : RayCastController
 
     private void HorizontalCollisions(ref Vector3 velocity)
     {
-        float directionX = Mathf.Sign(velocity.x);
-        float rayLength = Mathf.Abs(velocity.x) + skinWidth + 0.03f; ;
+        float directionX = collisions.faceDir;
+        float rayLength = Mathf.Abs(velocity.x) + skinWidth + 0.03f;
+
+        if (Mathf.Abs(velocity.x) < skinWidth)
+        {
+            rayLength = 2 * skinWidth;
+        }
 
         for (int i = 0; i < horizontalRayCount; i++)
         {
@@ -205,6 +213,7 @@ public class Controller2D : RayCastController
         public bool climbingSlope, descendingSlope;
         public float slopeAngle, slopeAngleOld;
         public Vector3 velocityOld;
+        public int faceDir;
 
         public void Reset()
         {

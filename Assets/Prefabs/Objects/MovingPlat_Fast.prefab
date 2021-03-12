@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5436507836456256806}
   - component: {fileID: 297304089096457977}
   - component: {fileID: 6443589945470028231}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovingPlat_Fast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   horizontalRayCount: 4
   verticalRayCount: 4
   horizontalRaySpacing: 0
@@ -132,7 +132,9 @@ MonoBehaviour:
   boxCollider2D: {fileID: 0}
   passengerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   localWaypoints: []
   speed: 0
   cyclic: 0
+  waitTime: 0
+  easeAmount: 0
