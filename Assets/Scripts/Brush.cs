@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 public class Brush : MonoBehaviour
 {
     public TileBase tile;
+    private Camera cam;
     public GameObject placer;
     public Tilemap tilemap;
     private float zAxis = 0f;
@@ -17,6 +18,7 @@ public class Brush : MonoBehaviour
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        cam = Camera.main;
 
         Cursor.visible = true;
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -24,7 +26,7 @@ public class Brush : MonoBehaviour
 
     private void LateUpdate()
     {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = zAxis;
         placer.transform.position = mousePosition;
 

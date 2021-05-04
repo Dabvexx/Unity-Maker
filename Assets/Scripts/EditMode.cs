@@ -4,7 +4,7 @@ public class EditMode : MonoBehaviour
 {
     #region Variables
 
-    public bool editMode = true;
+    public bool IsEditMode = true;
     private float camScale;
 
     public Camera cam;
@@ -27,19 +27,19 @@ public class EditMode : MonoBehaviour
     {
         if (Input.GetKeyDown("p"))
         {
-            editMode = !editMode;
+            IsEditMode = !IsEditMode;
         }
 
-        if (editMode)
+        if (IsEditMode)
         {
             cam.GetComponent<EditorCam>().enabled = true;
             cam.GetComponent<CameraFollow2D>().enabled = false;
-            brush.GetComponent<Brush>().enabled = true;
+            //brush.GetComponent<Brush>().enabled = true;
             player.GetComponent<Player>().enabled = false;
             player.GetComponent<Controller2D>().enabled = false;
         }
 
-        if (!editMode)
+        if (!IsEditMode)
         {
             cam.GetComponent<EditorCam>().enabled = false;
             cam.GetComponent<CameraFollow2D>().enabled = true;

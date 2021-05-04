@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 66278774396948305}
   - component: {fileID: 2659072147568769611}
-  - component: {fileID: 2659072147568769610}
   - component: {fileID: 2659072147568769609}
+  - component: {fileID: 2659072147568769610}
   - component: {fileID: -2447034156459981343}
   m_Layer: 0
   m_Name: Flag
@@ -90,27 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2659072147568769610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2659072147568769608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b424291e7d01d7342844060042b0af1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  height: 5
-  flagSections: {fileID: 4197896276445415222, guid: 832036ca0cba2e446b86472b85ec0b90,
-    type: 3}
-  flagTopper: {fileID: 6914020078672732348, guid: 2a9475f80b549e548b72f312007db4c3,
-    type: 3}
-  flagBase: {fileID: 2659072147568769608}
-  boxCollider2D: {fileID: 0}
-  Segments: []
-  button: {fileID: 0}
 --- !u!61 &2659072147568769609
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,6 +116,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2659072147568769610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2659072147568769608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b424291e7d01d7342844060042b0af1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 5
+  flagSections: {fileID: 4197896276445415222, guid: 832036ca0cba2e446b86472b85ec0b90,
+    type: 3}
+  flagTopper: {fileID: 6914020078672732348, guid: 2a9475f80b549e548b72f312007db4c3,
+    type: 3}
+  flagBase: {fileID: 2659072147568769608}
+  boxCollider2D: {fileID: 0}
+  Segments: []
+  flagButtonHandeler: {fileID: 0}
 --- !u!114 &-2447034156459981343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,4 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c250ef755ad1f439d937801ae52f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonHandeler: {fileID: 0}
+  flagButtonHandeler: {fileID: 0}

@@ -20,7 +20,7 @@ public class FlagGenerator : MonoBehaviour
 
     // end of flagpole variables
 
-    public Button button;
+    public ButtonHandeler buttonHandeler;
 
     #endregion Variables
 
@@ -28,6 +28,8 @@ public class FlagGenerator : MonoBehaviour
 
     private void Awake()
     {
+        buttonHandeler = GameObject.Find("GameManager").GetComponent<ButtonHandeler>();
+
         if (Segments.Count == 0)
         {
             GenerateFlag(height);
@@ -85,6 +87,9 @@ public class FlagGenerator : MonoBehaviour
         }
 
         RegenerateCollider();
+
+        Debug.Log("Size Decrease");
+
     }
 
     public void IncreaseSize()
@@ -98,14 +103,19 @@ public class FlagGenerator : MonoBehaviour
         Segments[Segments.Count - 1].transform.localPosition = new Vector3(0, Segments.Count, 0);
 
         RegenerateCollider();
+
+        Debug.Log("Size Increase");
+
     }
 
     private void RegenerateCollider()
     {
-        //really it only needs 1 box collider that just gets its position moved up and its size increased by 1 each time
 
-        //use bounds of all segments except the topper, calculate the size of a box collider
-        //Bounds bounds;
+    }
+
+    private void OnMouseDown()
+    {
+        buttonHandeler.flagGen = this;
     }
 
     #endregion Methods

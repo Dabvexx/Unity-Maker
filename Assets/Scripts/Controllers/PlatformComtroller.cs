@@ -25,9 +25,13 @@ public class PlatformComtroller : RayCastController
     private List<PassengerMovement> passengerMovement;
     private Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
 
+    private EditMode editMode;
+
     public override void Start()
     {
         base.Start();
+
+        editMode = GameObject.Find("GameManager").GetComponent<EditMode>();
 
         // Add functionality to change the amount of waypoints at runtime
         // Could also calculate this in the awake method
@@ -40,15 +44,18 @@ public class PlatformComtroller : RayCastController
 
     private void Update()
     {
-        updateRayCastOrigins();
+        if (!editMode.IsEditMode)
+        {
+            updateRayCastOrigins();
 
-        Vector3 velocity = CalculatePlatformMovement();
+            Vector3 velocity = CalculatePlatformMovement();
 
-        CalculatePassengerMovement(velocity);
+            CalculatePassengerMovement(velocity);
 
-        MovePassengers(true);
-        transform.Translate(velocity);
-        MovePassengers(false);
+            MovePassengers(true);
+            transform.Translate(velocity);
+            MovePassengers(false);
+        }
     }
 
     private float Ease(float x)
