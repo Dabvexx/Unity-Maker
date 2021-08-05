@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectObject : MonoBehaviour
+public class SelectionManager : MonoBehaviour
 {
 	#region Variables
 	
