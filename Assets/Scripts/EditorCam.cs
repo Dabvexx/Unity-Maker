@@ -17,7 +17,7 @@ public class EditorCam : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void LateUpdate()
+    private void Update()
     {
         float xAxisValue = Input.GetAxis("Horizontal");
         float yAxisValue = Input.GetAxis("Vertical");

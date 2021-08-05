@@ -11,7 +11,7 @@ public class FlagGenerator : MonoBehaviour
     public GameObject flagSections;
     public GameObject flagTopper;
     public GameObject flagBase;
-    public BoxCollider2D boxCollider2D;
+    public BoxCollider2D bc;
 
     protected GameObject pole;
     protected GameObject topper;
@@ -35,26 +35,10 @@ public class FlagGenerator : MonoBehaviour
             GenerateFlag(height);
         }
 
-        foreach (var section in Segments)
+        /*foreach (var section in Segments)
         {
             Debug.Log(section);
-        }
-
-        //Button btn = button.GetComponent<Button>();
-        //btn.onClick.AddListener(IncreaseSize);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown("x"))
-        {
-            IncreaseSize();
-        }
-
-        if (Input.GetKeyDown("c"))
-        {
-            DecreaseSize();
-        }
+        }*/
     }
 
     #endregion Unity Methods
@@ -88,7 +72,7 @@ public class FlagGenerator : MonoBehaviour
 
         RegenerateCollider();
 
-        Debug.Log("Size Decrease");
+        Debug.Log($"Size Decreased to {Segments.Count}");
 
     }
 
@@ -104,13 +88,40 @@ public class FlagGenerator : MonoBehaviour
 
         RegenerateCollider();
 
-        Debug.Log("Size Increase");
+        Debug.Log($"Size Increased to {Segments.Count}");
 
     }
 
     private void RegenerateCollider()
     {
+        Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+        bool hasBounds = false;
+        SpriteRenderer[] renderers = { Segments[0].GetComponent<SpriteRenderer>(), topper.GetComponent<SpriteRenderer>() };
 
+        foreach (Renderer render in renderers)
+        {
+            if (hasBounds)
+            {
+                bounds.Encapsulate(render.bounds);
+            }
+            else
+            {
+                bounds = render.bounds;
+                hasBounds = true;
+            }
+        }
+
+        if (hasBounds)
+        {
+            bc.offset = bounds.center - transform.root.position;
+            bc.offset += new Vector2(0f, .4f);
+            bc.size = new Vector2(.25f, bounds.size.y + .8f);
+        }
+        else
+        {
+            bc.size = bc.offset = Vector3.zero;
+            bc.size = Vector3.zero;
+        }
     }
 
     private void OnMouseDown()
