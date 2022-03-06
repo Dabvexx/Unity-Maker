@@ -28,17 +28,14 @@ public class FlagGenerator : MonoBehaviour
 
     private void Awake()
     {
+        // Change this to an event, the flag is currently dependant on this file existing.
         buttonHandeler = GameObject.Find("GameManager").GetComponent<ButtonHandeler>();
-
+        
+        // Dont generate flag if the flag already exists.
         if (Segments.Count == 0)
         {
             GenerateFlag(height);
         }
-
-        /*foreach (var section in Segments)
-        {
-            Debug.Log(section);
-        }*/
     }
 
     #endregion Unity Methods
@@ -47,11 +44,13 @@ public class FlagGenerator : MonoBehaviour
 
     private void GenerateFlag(int length)
     {
+        // Add the flag topper as the first element in list.
         topper = Instantiate(flagTopper, new Vector3(0, 0, 0), Quaternion.identity, flagBase.transform);
         topper.transform.localPosition = new Vector3(0, Segments.Count + 1, 0);
         topper.name = "FlagTopper";
         Segments.Add(topper);
 
+        // Generate flag up to base height.
         for (int i = 1; i <= length - 1; i++)
         {
             IncreaseSize();
@@ -60,13 +59,17 @@ public class FlagGenerator : MonoBehaviour
 
     public void DecreaseSize()
     {
+        // If the flag has more than one segment, decrease the height, the adjust collider.
+        // Otherwise, adjust collider.
         if (Segments.Count != 1)
         {
+            // Subtreact by two to get the segment below the top of the flag.
             pole = Segments[Segments.Count - 2];
             Segments.RemoveAt(Segments.Count - 2);
 
             Destroy(pole);
-
+            
+            // Adjust flag height accordingly.
             topper.transform.localPosition = new Vector3(0, Segments.Count, 0);
         }
 
@@ -78,6 +81,7 @@ public class FlagGenerator : MonoBehaviour
 
     public void IncreaseSize()
     {
+        // Create the new flagpole segment, then insert into the list.
         pole = Instantiate(flagSections, new Vector3(0, 0, 0), Quaternion.identity, flagBase.transform);
         pole.transform.localPosition = new Vector3(0, Segments.Count, 0);
         pole.name = $"FlagPole_{Segments.Count}"; // raname segments so they arnt just FlagPole(clone)
@@ -86,6 +90,7 @@ public class FlagGenerator : MonoBehaviour
 
         Segments[Segments.Count - 1].transform.localPosition = new Vector3(0, Segments.Count, 0);
 
+        // After adding a new segment, adjust collider accordingly.
         RegenerateCollider();
 
         Debug.Log($"Size Increased to {Segments.Count}");
@@ -94,6 +99,7 @@ public class FlagGenerator : MonoBehaviour
 
     private void RegenerateCollider()
     {
+        // Black magic to regenerate the collider to encapsulate the whole flag instead of every segment having a seperate collider and script.
         Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
         bool hasBounds = false;
         SpriteRenderer[] renderers = { Segments[0].GetComponent<SpriteRenderer>(), topper.GetComponent<SpriteRenderer>() };
@@ -124,6 +130,7 @@ public class FlagGenerator : MonoBehaviour
         }
     }
 
+    // TODO: This really needs a rework with events.
     private void OnMouseDown()
     {
         buttonHandeler.flagGen = this;
