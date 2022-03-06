@@ -37,6 +37,12 @@ public class FlagGenerator : MonoBehaviour
             GenerateFlag(height);
         }
     }
+    
+    private void OnMouseDown()
+    {
+        // TODO: This really needs a rework with events.
+        buttonHandeler.flagGen = this;
+    }
 
     #endregion Unity Methods
 
@@ -59,20 +65,22 @@ public class FlagGenerator : MonoBehaviour
 
     public void DecreaseSize()
     {
-        // If the flag has more than one segment, decrease the height, the adjust collider.
-        // Otherwise, adjust collider.
-        if (Segments.Count != 1)
+        // If the flag has more than one segment, decrease the height.
+        if (Segments.Count = 1)
         {
-            // Subtreact by two to get the segment below the top of the flag.
-            pole = Segments[Segments.Count - 2];
-            Segments.RemoveAt(Segments.Count - 2);
-
-            Destroy(pole);
-            
-            // Adjust flag height accordingly.
-            topper.transform.localPosition = new Vector3(0, Segments.Count, 0);
+            return;
         }
+        
+        // Subtreact by two to get the segment below the top of the flag.
+        pole = Segments[Segments.Count - 2];
+        Segments.RemoveAt(Segments.Count - 2);
 
+        Destroy(pole);
+            
+        // Adjust flag height accordingly.
+        topper.transform.localPosition = new Vector3(0, Segments.Count, 0);
+        
+        // After removing old segment, adjust collider accordingly.
         RegenerateCollider();
 
         Debug.Log($"Size Decreased to {Segments.Count}");
@@ -88,6 +96,7 @@ public class FlagGenerator : MonoBehaviour
 
         Segments.Insert(Segments.Count - 1, pole);
 
+        // Adjust flag height accordingly.
         Segments[Segments.Count - 1].transform.localPosition = new Vector3(0, Segments.Count, 0);
 
         // After adding a new segment, adjust collider accordingly.
@@ -128,12 +137,6 @@ public class FlagGenerator : MonoBehaviour
             bc.size = bc.offset = Vector3.zero;
             bc.size = Vector3.zero;
         }
-    }
-
-    // TODO: This really needs a rework with events.
-    private void OnMouseDown()
-    {
-        buttonHandeler.flagGen = this;
     }
 
     #endregion Methods
